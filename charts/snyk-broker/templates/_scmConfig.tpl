@@ -471,7 +471,7 @@ Define Container Registry Agent
 {{- if eq .Values.scmType "container-registry-agent" }}
 {{- include "snyk-broker.brokerToken" . }}
 - name: CR_AGENT_URL
-  value: http://cra-service{{if not .Values.disableSuffixes }}-{{ .Release.Name }}{{ end }}:{{ .Values.deployment.container.crSnykPort | toString }}
+  value: http://cra-service{{if not .Values.disableSuffixes }}-{{ .Release.Name }}{{ end }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.deployment.container.crSnykPort | toString }}
 - name: CR_TYPE
   value: {{ .Values.crType }}
 {{- if not (has .Values.crType (list "ecr")) }}
@@ -493,6 +493,6 @@ Define Container Registry Agent
 {{- include "snyk-broker.brokerClientPort" . }}
 {{- include "snyk-broker.brokerClientUrl" . }}
 - name: BROKER_CLIENT_VALIDATION_URL
-  value: http://cra-service{{if not .Values.disableSuffixes }}-{{ .Release.Name }}{{ end }}:{{ .Values.deployment.container.crSnykPort | toString }}/healthcheck
+  value: http://cra-service{{if not .Values.disableSuffixes }}-{{ .Release.Name }}{{ end }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.deployment.container.crSnykPort | toString }}/healthcheck
 {{- end }}
 {{- end }}
